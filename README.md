@@ -1,3 +1,7 @@
+#FP LBE GIGA 2026
+Nama: Mahardika Indra Pratama Ilyasa
+NRP: 5054251045
+
 # 🏆 Tuyul Finding Treasure
 
 **Tuyul Finding Treasure** adalah game **2D Top-Down Maze / Dungeon Crawler** dengan elemen puzzle dan minigame yang dibuat menggunakan **Python dan Pygame 2.6.1**.
