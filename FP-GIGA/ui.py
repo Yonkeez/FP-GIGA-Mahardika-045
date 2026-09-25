@@ -49,11 +49,8 @@ class UIOverlay:
     def draw_main_menu(self, surface, total_chests):
             surface.fill(BLACK)
 
-            # LEBAR DIPERBESAR JADI 600 (Pengurangnya X jadi 300)
             panel_rect = pygame.Rect(WIDTH // 2 - 300, HEIGHT // 2 - 190, 600, 370)
             self._draw_temple_panel(surface, panel_rect)
-
-            # Judul Game (Otomatis Pas di Tengah)
             title = self.big_font.render("Tuyul Finding Treasure", True, GOLD_LIGHT)
             title_rect = title.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 140))
             surface.blit(title, title_rect)
