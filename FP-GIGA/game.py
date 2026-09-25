@@ -25,10 +25,11 @@ class Game:
         self.start_pos = (0, 0)
         self.traps = []
 
-        # --- SPRITE TREASURE CHEST ---
         self.chest_img = pygame.image.load("assets/chest.png").convert_alpha()
-        # Perbesar paksa jadi 80x80 atau sesuaikan keinginan
         self.chest_img = pygame.transform.scale(self.chest_img, (80, 80))
+
+        self.door_img = pygame.image.load("assets/door.png").convert_alpha()
+        self.door_img = pygame.transform.scale(self.door_img, (48,48))
 
     def start_new_game(self):
         self.state = "ROOM_1"
@@ -52,8 +53,6 @@ class Game:
                 elif char == 'S':
                     self.start_pos = (x * TILE_SIZE + 5, y * TILE_SIZE + 5)
                     self.player = Player(*self.start_pos)
-                elif char == 'B':
-                    self.board = rect
                 elif char == 'D':
                     self.door = rect
                 elif char == 'T':
@@ -156,14 +155,13 @@ class Game:
         elif self.state in ["ROOM_1", "ROOM_2", "ROOM_3", "TREASURE_ROOM"]:
             self.player.update(keys, self.walls)
             
-            # Update jebakan panah dan cek tabrakan
             for trap in self.traps:
                 trap.update(self.walls)
                 if trap.check_player_collision(self.player.rect):
                     self.respawn_player()
 
             if self.door and self.player.rect.colliderect(self.door.inflate(20, 20)):
-                self.set_message("Tekan E untuk masuk Mini-game", 0.5)
+                self.set_message("Tekan E untuk Buka Pintu & Minigame", 0.5)
 
     def draw(self):
         self.screen.fill(BLACK)
@@ -178,26 +176,43 @@ class Game:
             self.current_minigame.draw(self.screen, self.font)
 
         else:
-            for wall in self.walls: 
+            for wall in self.walls:
                 pygame.draw.rect(self.screen, GRAY, wall)
-                
-            # Gambar Jebakan Panah
+
             for trap in self.traps:
                 trap.draw(self.screen)
 
             if self.board:
                 pygame.draw.rect(self.screen, YELLOW, self.board)
-                self.screen.blit(self.font.render("MG", True, BLACK), (self.board.x + 2, self.board.y + 10))
-            if self.door: 
-                pygame.draw.rect(self.screen, GREEN, self.door)
+                self.screen.blit(
+                    self.font.render("MG", True, BLACK),
+                    (self.board.x + 2, self.board.y + 10)
+                )
+
+            if self.door:
+                door_rect = self.door_img.get_rect(center=self.door.center)
+                self.screen.blit(self.door_img, door_rect)
+
             if self.treasure:
                 chest_rect = self.chest_img.get_rect(center=self.treasure.center)
                 self.screen.blit(self.chest_img, chest_rect)
 
-            # Draw HUD & Messages
-            self.screen.blit(self.font.render(f"Keys: {self.keys}/3 | Room: {self.state}", True, WHITE), (10, HEIGHT - 40))
+            self.player.draw(self.screen)
+
+            self.screen.blit(
+                self.font.render(
+                    f"Keys: {self.keys}/3 | Room: {self.state}",
+                    True,
+                    WHITE
+                ),
+                (10, HEIGHT - 40)
+            )
+
             if time.time() < self.message_timer:
                 msg = self.font.render(self.message, True, ORANGE)
-                self.screen.blit(msg, (WIDTH//2 - msg.get_width()//2, 20))
-            
+                self.screen.blit(
+                    msg,
+                    (WIDTH // 2 - msg.get_width() // 2, 20)
+                )
+
         pygame.display.flip()

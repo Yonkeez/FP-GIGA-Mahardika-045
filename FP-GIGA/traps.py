@@ -5,10 +5,8 @@ class Arrow:
         self.direction = direction
         self.speed = speed
 
-        # 1. Muat gambar mentah
         raw_image = pygame.image.load("assets/arrow.png").convert_alpha()
 
-        # 2. Atur ukuran Rect & Rotasi Gambar sesuai Arah agar TIDAK GEPENG
         if direction in ["LEFT", "RIGHT"]:
             self.rect = pygame.Rect(x, y + TILE_SIZE // 2 - 8, 32, 16)
             scaled = pygame.transform.scale(raw_image, (32, 16))
@@ -16,8 +14,7 @@ class Arrow:
                 self.image = pygame.transform.flip(scaled, True, False)
             else:
                 self.image = scaled
-        else:  # UP / DOWN
-            # Tukar ukuran jadi vertikal (16x32)
+        else:  
             self.rect = pygame.Rect(x + TILE_SIZE // 2 - 8, y, 16, 32)
             scaled = pygame.transform.scale(raw_image, (32, 16))
             if direction == "DOWN":

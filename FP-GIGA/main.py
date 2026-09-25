@@ -5,10 +5,9 @@ from game import Game
 def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("The Three Keys (OOP Version)")
+    pygame.display.set_caption("Tuyul finding treasure")
     clock = pygame.time.Clock()
     
-    # Init main Game class
     game = Game(screen)
     
     running = True

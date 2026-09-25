@@ -16,7 +16,7 @@ class Minigame1:
             if self.target and self.target.collidepoint(event.pos):
                 self.score += 1
                 self.target = pygame.Rect(random.randint(50, WIDTH-100), random.randint(100, HEIGHT-100), 50, 50)
-                if self.score >= 1: #EDIT SCORE TARGET
+                if self.score >= 10: #EDIT SCORE TARGET
                     self.on_win()
 
     def update(self, keys):
@@ -59,16 +59,16 @@ class Minigame2:
                     
                     if self.sequence[len(self.player_seq) - 1] != i:
                         self.state = "WAIT_LOSE"
-                        self.delay_timer = time.time() + 0.3  # Beri jeda 0.3 detik agar warna biru kelihatan
+                        self.delay_timer = time.time() + 0.3  
                     elif len(self.player_seq) == len(self.sequence):
                         self.state = "WAIT_WIN"
-                        self.delay_timer = time.time() + 0.3  # Beri jeda 0.3 detik agar warna biru kelihatan
+                        self.delay_timer = time.time() + 0.3  
                     else:
                         self.delay_timer = time.time() + 0.15
 
     def update(self, keys):
         if self.state == "SHOWING":
-            if time.time() - self.timer > 0.8:  # Tampilkan tiap kotak 0.8 detik
+            if time.time() - self.timer > 0.8: 
                 self.showing_index += 1
                 self.timer = time.time()
                 if self.showing_index >= len(self.sequence):
@@ -126,28 +126,25 @@ class Minigame3:
         self.on_win = on_win
         self.on_lose = on_lose
 
-        # --- POTONG SPRITE PLAYER (PERBESAR UKURAN) ---
         sheet = pygame.image.load("assets/player.png").convert_alpha()
         cols, rows = 6, 4
         frame_w = sheet.get_width() // cols
         frame_h = sheet.get_height() // rows
 
-        # Ambil frame baris 2 (Kiri) dan baris 3 (Kanan)
-        # PERBESAR UKURAN KE 64x64
+
         frame_baris_2 = pygame.transform.scale(
-            sheet.subsurface(pygame.Rect(0, 1 * frame_h, frame_w, frame_h)), (64, 64)
+            sheet.subsurface(pygame.Rect(0, 1 * frame_h, frame_w, frame_h)), (80, 80)
         )
         frame_baris_3 = pygame.transform.scale(
-            sheet.subsurface(pygame.Rect(0, 2 * frame_h, frame_w, frame_h)), (64, 64)
+            sheet.subsurface(pygame.Rect(0, 2 * frame_h, frame_w, frame_h)), (80, 80)
         )
 
-        # PASTIKAN ARAHNYA BENAR. JIKA TERBALIK, TUKAR NILAI self.img_left DAN self.img_right DI BAWAH INI
         self.img_left = frame_baris_2
         self.img_right = frame_baris_3
         
         self.current_player_img = self.img_right
 
-        # --- ARROW JATUH ---
+        # ARROW JATUH
         raw_arrow = pygame.image.load("assets/arrow.png").convert_alpha()
         scaled_arrow = pygame.transform.scale(raw_arrow, (32, 16))
         self.arrow_img = pygame.transform.rotate(scaled_arrow, -90)
@@ -166,7 +163,6 @@ class Minigame3:
         if self.player.right > WIDTH: self.player.right = WIDTH
 
         if random.random() < 0.05:
-            # Hitbox panah jatuh (16x32)
             self.enemies.append(pygame.Rect(random.randint(0, WIDTH - 30), -30, 16, 32))
 
         for enemy in self.enemies[:]:
@@ -186,12 +182,10 @@ class Minigame3:
         timer_text = font.render(f"Bertahan: {time_left}s", True, WHITE)
         screen.blit(timer_text, (20, 60))
 
-        # Gambar Player
         player_draw_rect = self.current_player_img.get_rect(midbottom=self.player.midbottom)
         # Geser sedikit ke atas agar kaki sejajar
         player_draw_rect.y -= 10
         screen.blit(self.current_player_img, player_draw_rect)
 
-        # Gambar Panah Jatuh
         for enemy in self.enemies:
             screen.blit(self.arrow_img, enemy)
