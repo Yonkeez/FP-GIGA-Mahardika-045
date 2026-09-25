@@ -25,6 +25,11 @@ class Game:
         self.start_pos = (0, 0)
         self.traps = []
 
+        # --- SPRITE TREASURE CHEST ---
+        self.chest_img = pygame.image.load("assets/chest.png").convert_alpha()
+        # Perbesar paksa jadi 80x80 atau sesuaikan keinginan
+        self.chest_img = pygame.transform.scale(self.chest_img, (80, 80))
+
     def start_new_game(self):
         self.state = "ROOM_1"
         self.keys = 0
@@ -186,10 +191,8 @@ class Game:
             if self.door: 
                 pygame.draw.rect(self.screen, GREEN, self.door)
             if self.treasure:
-                pygame.draw.rect(self.screen, YELLOW, self.treasure)
-                self.screen.blit(self.font.render("PETI", True, BLACK), (self.treasure.x-10, self.treasure.y+5))
-            
-            self.player.draw(self.screen)
+                chest_rect = self.chest_img.get_rect(center=self.treasure.center)
+                self.screen.blit(self.chest_img, chest_rect)
 
             # Draw HUD & Messages
             self.screen.blit(self.font.render(f"Keys: {self.keys}/3 | Room: {self.state}", True, WHITE), (10, HEIGHT - 40))
