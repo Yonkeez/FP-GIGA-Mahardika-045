@@ -1,7 +1,8 @@
-#FP LBE GIGA 2026
-
-Nama: Mahardika Indra Pratama Ilyasa
-NRP: 5054251045
+#   FP LBE GIGA 2026
+        
+| **Nama** | **NRP** |
+|---|---|
+| Mahardika Indra Pratama Ilyasa | 5054251045 |
 
 # 🏆 Tuyul Finding Treasure
 
