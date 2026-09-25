@@ -83,3 +83,21 @@ ROOM_3_MAZE = [
     "WWWWWWWWWWWWWWWWWWWW",
     "WWWWWWWWWWWWWWWWWWWW"
 ]
+
+TREASURE_ROOM = [
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WS                 W",
+    "W                  W",
+    "W                  W",
+    "W                  W",
+    "W                  W",
+    "W         T        W",
+    "W                  W",
+    "W                  W",
+    "W                  W",
+    "W                  W",
+    "W                  W",
+    "W                  W",
+    "W                  W",
+    "WWWWWWWWWWWWWWWWWWWW"
+]

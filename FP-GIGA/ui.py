@@ -47,22 +47,23 @@ class UIOverlay:
         pygame.draw.rect(surface, GOLD_DARK, inner_rect, width=2, border_radius=8)
 
     def draw_main_menu(self, surface, total_chests):
-        surface.fill(BLACK)
+            surface.fill(BLACK)
 
-        panel_rect = pygame.Rect(WIDTH // 2 - 220, HEIGHT // 2 - 190, 440, 370)
-        self._draw_temple_panel(surface, panel_rect)
+            # LEBAR DIPERBESAR JADI 600 (Pengurangnya X jadi 300)
+            panel_rect = pygame.Rect(WIDTH // 2 - 300, HEIGHT // 2 - 190, 600, 370)
+            self._draw_temple_panel(surface, panel_rect)
 
-        title = self.big_font.render("Tuyul Finding Treasure", True, GOLD_LIGHT)
-        title_rect = title.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 140))
-        surface.blit(title, title_rect)
+            # Judul Game (Otomatis Pas di Tengah)
+            title = self.big_font.render("Tuyul Finding Treasure", True, GOLD_LIGHT)
+            title_rect = title.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 140))
+            surface.blit(title, title_rect)
 
-        chest_text = self.font.render(f"Peti Terkumpul: {total_chests}", True, CREAM)
-        chest_rect = chest_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 80))
-        surface.blit(chest_text, chest_rect)
+            chest_text = self.font.render(f"Peti Terkumpul: {total_chests}", True, CREAM)
+            chest_rect = chest_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 80))
+            surface.blit(chest_text, chest_rect)
 
-        self.btn_start.draw(surface, self.font)
-        self.btn_exit.draw(surface, self.font)
-
+            self.btn_start.draw(surface, self.font)
+            self.btn_exit.draw(surface, self.font)
     def draw_win_menu(self, surface, total_chests):
         surface.fill(BLACK)
 
